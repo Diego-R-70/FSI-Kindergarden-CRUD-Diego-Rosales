@@ -157,16 +157,19 @@ public class FPrincipal extends javax.swing.JFrame {
     private void BNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BNuevoActionPerformed
         if (TBInfantes.isSelected()){
             JDInfantes di = new JDInfantes(this, true);
-            di.setVisible(true);
             di.obtenerConexion(cnx);
+            di.setVisible(true);           
         }else if (TBEducadores.isSelected()){
             JDEducadores de = new JDEducadores(this, true);
+            de.obtenerConexion(cnx);
             de.setVisible(true);
         }else if (TBResponsables.isSelected()){
             JDResponsables dr = new JDResponsables(this, true);
+            dr.obtenerConexion(cnx);
             dr.setVisible(true);
         }else if (TBBitacora.isSelected()){
             JDBitacora db = new JDBitacora(this, true);
+            db.obtenerConexion(cnx);
             db.setVisible(true);
         }
     }//GEN-LAST:event_BNuevoActionPerformed

@@ -1,3 +1,7 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,12 +14,18 @@
  */
 public class JDBitacora extends javax.swing.JDialog {
 
-    /**
-     * Creates new form JDBitacora
-     */
+    private Conexion cnx;
+    
     public JDBitacora(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    
+    public void obtenerConexion (Conexion cnx){
+        this.cnx = cnx;
+        cnx.seleccionar(Infante.curps, CBInfante);
+        cnx.seleccionar(Responsable.curps, CBResponsable);
+        cnx.seleccionar(Educadores.curps, CBEducador);
     }
 
     /**
@@ -34,8 +44,6 @@ public class JDBitacora extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         CBTipo = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         TAObservaciones = new javax.swing.JTextArea();
@@ -46,6 +54,9 @@ public class JDBitacora extends javax.swing.JDialog {
         BActualizar = new javax.swing.JButton();
         BCancelar = new javax.swing.JButton();
         BBorrar = new javax.swing.JButton();
+        LFecha = new javax.swing.JLabel();
+        LFolio = new javax.swing.JLabel();
+        BHoy = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -63,10 +74,6 @@ public class JDBitacora extends javax.swing.JDialog {
 
         jLabel7.setText("Educador");
 
-        jLabel8.setText("...");
-
-        jLabel9.setText("...");
-
         CBTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrada", "Salida" }));
 
         TAObservaciones.setColumns(20);
@@ -80,6 +87,11 @@ public class JDBitacora extends javax.swing.JDialog {
         CBEducador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         BRegistrar.setText("REGISTRAR");
+        BRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BRegistrarActionPerformed(evt);
+            }
+        });
 
         BActualizar.setText("ACTUALIZAR");
 
@@ -89,6 +101,17 @@ public class JDBitacora extends javax.swing.JDialog {
         BBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BBorrarActionPerformed(evt);
+            }
+        });
+
+        LFecha.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        LFolio.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        BHoy.setText("HOY");
+        BHoy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BHoyActionPerformed(evt);
             }
         });
 
@@ -111,12 +134,15 @@ public class JDBitacora extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(CBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CBInfante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CBResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CBEducador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(LFolio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(LFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BHoy))
+                            .addComponent(CBInfante, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(CBResponsable, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(CBEducador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BRegistrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -131,13 +157,14 @@ public class JDBitacora extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(LFolio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel9))
+                    .addComponent(BHoy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -175,6 +202,36 @@ public class JDBitacora extends javax.swing.JDialog {
     private void BBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBorrarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BBorrarActionPerformed
+
+    private void BRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BRegistrarActionPerformed
+        
+        
+        Bitacora bitacora = new Bitacora (
+            null,    
+            LFecha.getText(),
+            CBTipo.getSelectedItem().toString(),
+            TAObservaciones.getText(),
+            CBInfante.getSelectedItem().toString(),
+            CBResponsable.getSelectedItem().toString(),
+            CBEducador.getSelectedItem().toString()
+        );  
+            
+       
+        
+        if (bitacora.insertar(cnx.con) == 1) {
+            JOptionPane.showMessageDialog(this, "EDUCADOR REGISTRADO.");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "ERROR DE REGISTRO.");
+            this.dispose();
+        }
+        
+    }//GEN-LAST:event_BRegistrarActionPerformed
+
+    private void BHoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BHoyActionPerformed
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        LFecha.setText(s.format(new Date()));
+    }//GEN-LAST:event_BHoyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,11 +279,14 @@ public class JDBitacora extends javax.swing.JDialog {
     private javax.swing.JButton BActualizar;
     private javax.swing.JButton BBorrar;
     private javax.swing.JButton BCancelar;
+    private javax.swing.JButton BHoy;
     private javax.swing.JButton BRegistrar;
     private javax.swing.JComboBox<String> CBEducador;
     private javax.swing.JComboBox<String> CBInfante;
     private javax.swing.JComboBox<String> CBResponsable;
     private javax.swing.JComboBox<String> CBTipo;
+    private javax.swing.JLabel LFecha;
+    private javax.swing.JLabel LFolio;
     private javax.swing.JTextArea TAObservaciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -235,8 +295,6 @@ public class JDBitacora extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,7 @@ import java.sql.*;
 public class Educadores {
     
     static String todos = "SELECT * FROM educadores ORDER BY nombree";
+    static String curps = "SELECT * curpe FROM educadores ORDER BY curpe";
     
     String curp, nombre, sexo, telefono, direccion, estado;
     

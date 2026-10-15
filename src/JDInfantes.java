@@ -1,5 +1,6 @@
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /*
@@ -207,7 +208,7 @@ public class JDInfantes extends javax.swing.JDialog {
             TFCurpi.getText(),
             TFNombrei.getText(),
             CBSexoi.getSelectedItem().toString(),
-            s.format(SFechaNac.getValue()).toString(),
+            s.format((Date)SFechaNac.getValue()),
             CBEstadoi.getSelectedItem().toString()
         );
         

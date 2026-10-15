@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,12 +13,15 @@
  */
 public class JDEducadores extends javax.swing.JDialog {
 
-    /**
-     * Creates new form JDEducadores
-     */
+    private Conexion cnx;
+    
     public JDEducadores(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    
+    public void obtenerConexion (Conexion cnx){
+        this.cnx = cnx;
     }
 
     /**
@@ -64,6 +70,11 @@ public class JDEducadores extends javax.swing.JDialog {
         jLabel7.setText("Datos del educador");
 
         BRegistrar.setText("REGISTRAR");
+        BRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BRegistrarActionPerformed(evt);
+            }
+        });
 
         BActualizar.setText("ACTUALIZAR");
 
@@ -158,6 +169,29 @@ public class JDEducadores extends javax.swing.JDialog {
     private void TFCurpeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFCurpeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TFCurpeActionPerformed
+
+    private void BRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BRegistrarActionPerformed
+            
+        Educadores edu = new Educadores (
+            TFCurpe.getText(),
+            TFNombree.getText(),
+            CBSexoe.getSelectedItem().toString(),
+            TFTelefonoe.getText(),
+            TFDireccion.getText(),
+            CBEstadoe.getSelectedItem().toString()
+        );  
+            
+       
+        
+        if (edu.insertar(cnx.con) == 1) {
+            JOptionPane.showMessageDialog(this, "EDUCADOR REGISTRADO.");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "ERROR DE REGISTRO.");
+            this.dispose();
+        }        
+        
+    }//GEN-LAST:event_BRegistrarActionPerformed
 
     /**
      * @param args the command line arguments

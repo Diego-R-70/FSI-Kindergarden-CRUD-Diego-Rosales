@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,12 +12,14 @@
  */
 public class JDResponsables extends javax.swing.JDialog {
 
-    /**
-     * Creates new form JDResponsables
-     */
+    private Conexion cnx;
+    
     public JDResponsables(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    public void obtenerConexion (Conexion cnx){
+        this.cnx = cnx;
     }
 
     /**
@@ -72,6 +76,11 @@ public class JDResponsables extends javax.swing.JDialog {
         CBEstador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
 
         BRegistrar.setText("REGISTRAR");
+        BRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BRegistrarActionPerformed(evt);
+            }
+        });
 
         BActualizar.setText("ACTUALIZAR");
 
@@ -158,6 +167,27 @@ public class JDResponsables extends javax.swing.JDialog {
     private void TFCurprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFCurprActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TFCurprActionPerformed
+
+    private void BRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BRegistrarActionPerformed
+        
+        Responsable res = new Responsable (  
+            TFCurpr.getText(),
+            TFNombrer.getText(),
+            CBSexor.getSelectedItem().toString(),
+            TFTelefono.getText(),
+            TFParentesco.getText(),
+            CBEstador.getSelectedItem().toString()
+        );
+        
+        if (res.insertar(cnx.con) == 1) {
+            JOptionPane.showMessageDialog(this, "RESPONSABLE REGISTRADO.");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "ERROR DE REGISTRO.");
+            this.dispose();
+        }
+        
+    }//GEN-LAST:event_BRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
