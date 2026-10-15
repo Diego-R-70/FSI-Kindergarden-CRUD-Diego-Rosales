@@ -21,6 +21,17 @@ public class JDResponsables extends javax.swing.JDialog {
     public void obtenerConexion (Conexion cnx){
         this.cnx = cnx;
     }
+    public void obtenerResponsable(Responsable res){
+        
+            TFCurpr.setText(res.curp);
+            TFNombrer.setText(res.nombre);
+            CBSexor.setSelectedItem(res.sexo);
+            TFTelefono.setText(res.telefono);
+            TFParentesco.setText(res.parentesco);    
+            CBEstador.setSelectedItem(res.estado);
+        
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,10 +94,25 @@ public class JDResponsables extends javax.swing.JDialog {
         });
 
         BActualizar.setText("ACTUALIZAR");
+        BActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BActualizarActionPerformed(evt);
+            }
+        });
 
         BBorrar.setText("BORRAR");
+        BBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BBorrarActionPerformed(evt);
+            }
+        });
 
         BCancelar.setText("CANCELAR");
+        BCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,8 +195,7 @@ public class JDResponsables extends javax.swing.JDialog {
     }//GEN-LAST:event_TFCurprActionPerformed
 
     private void BRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BRegistrarActionPerformed
-        
-        Responsable res = new Responsable (  
+            Responsable res = new Responsable (  
             TFCurpr.getText(),
             TFNombrer.getText(),
             CBSexor.getSelectedItem().toString(),
@@ -180,7 +205,7 @@ public class JDResponsables extends javax.swing.JDialog {
         );
         
         if (res.insertar(cnx.con) == 1) {
-            JOptionPane.showMessageDialog(this, "RESPONSABLE REGISTRADO.");
+            JOptionPane.showMessageDialog(this, "Responsable registrado.");
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "ERROR DE REGISTRO.");
@@ -188,6 +213,48 @@ public class JDResponsables extends javax.swing.JDialog {
         }
         
     }//GEN-LAST:event_BRegistrarActionPerformed
+
+    private void BActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BActualizarActionPerformed
+        Responsable res = new Responsable (  
+            TFCurpr.getText(),
+            TFNombrer.getText(),
+            CBSexor.getSelectedItem().toString(),
+            TFTelefono.getText(),
+            TFParentesco.getText(),
+            CBEstador.getSelectedItem().toString()
+        );
+        
+        if (res.actualizar(cnx.con) == 1) {
+            JOptionPane.showMessageDialog(this, "Datos del responsable actualizados.");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "ERROR DE ACTUALIZACIÓN.");
+            this.dispose();
+        }
+    }//GEN-LAST:event_BActualizarActionPerformed
+
+    private void BBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBorrarActionPerformed
+        Responsable res = new Responsable (  
+            TFCurpr.getText(),
+            TFNombrer.getText(),
+            CBSexor.getSelectedItem().toString(),
+            TFTelefono.getText(),
+            TFParentesco.getText(),
+            CBEstador.getSelectedItem().toString()
+        );
+        
+        if (res.borrar(cnx.con) == 1) {
+            JOptionPane.showMessageDialog(this, "El responsable ha sido eliminado de la base de datos.");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al eliminar los datos del responsable.");
+            this.dispose();
+        }
+    }//GEN-LAST:event_BBorrarActionPerformed
+
+    private void BCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_BCancelarActionPerformed
 
     /**
      * @param args the command line arguments

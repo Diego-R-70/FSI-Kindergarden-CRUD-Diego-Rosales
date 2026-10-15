@@ -1,6 +1,8 @@
-
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /*
@@ -26,6 +28,21 @@ public class JDInfantes extends javax.swing.JDialog {
     }
     public void obtenerConexion (Conexion cnx){
         this.cnx = cnx;
+    }
+    public void obtenerInfante(Infante kid){
+        
+        try {
+            SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+        
+            TFCurpi.setText(kid.curp);
+            TFNombrei.setText(kid.nombre);
+            CBSexoi.setSelectedItem(kid.sexo);
+            SFechaNac.setValue(s.parse(kid.fecha));
+            CBEstadoi.setSelectedItem(kid.estado);            
+        } catch (ParseException ex) {
+            Logger.getLogger(JDInfantes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /**
@@ -101,16 +118,31 @@ public class JDInfantes extends javax.swing.JDialog {
         jLabel6.setText("Datos del infante");
 
         BActualizar.setText("ACTUALIZAR");
+        BActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BActualizarActionPerformed(evt);
+            }
+        });
 
         BBorrar.setText("BORRAR");
         BBorrar.setMaximumSize(new java.awt.Dimension(105, 25));
         BBorrar.setMinimumSize(new java.awt.Dimension(105, 25));
         BBorrar.setPreferredSize(new java.awt.Dimension(105, 25));
+        BBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BBorrarActionPerformed(evt);
+            }
+        });
 
         BCancelar.setText("CANCELAR");
         BCancelar.setMaximumSize(new java.awt.Dimension(105, 25));
         BCancelar.setMinimumSize(new java.awt.Dimension(105, 25));
         BCancelar.setPreferredSize(new java.awt.Dimension(105, 25));
+        BCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -213,7 +245,7 @@ public class JDInfantes extends javax.swing.JDialog {
         );
         
         if (kid.insertar(cnx.con) == 1) {
-            JOptionPane.showMessageDialog(this, "INFANTE REGISTRADO.");
+            JOptionPane.showMessageDialog(this, "Infante registrado.");
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "ERROR DE REGISTRO.");
@@ -221,6 +253,51 @@ public class JDInfantes extends javax.swing.JDialog {
         }
         
     }//GEN-LAST:event_BRegistrarActionPerformed
+
+    private void BActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BActualizarActionPerformed
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+        
+        Infante kid = new Infante (  
+            TFCurpi.getText(),
+            TFNombrei.getText(),
+            CBSexoi.getSelectedItem().toString(),
+            s.format((Date)SFechaNac.getValue()),
+            CBEstadoi.getSelectedItem().toString()
+        );
+        
+        if (kid.actualizar(cnx.con) == 1) {
+            JOptionPane.showMessageDialog(this, "Datos del infante actualizados.");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "ERROR DE ACTUALIZACIÓN.");
+            this.dispose();
+        }
+        
+    }//GEN-LAST:event_BActualizarActionPerformed
+
+    private void BBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBorrarActionPerformed
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+        
+        Infante kid = new Infante (  
+            TFCurpi.getText(),
+            TFNombrei.getText(),
+            CBSexoi.getSelectedItem().toString(),
+            s.format((Date)SFechaNac.getValue()),
+            CBEstadoi.getSelectedItem().toString()
+        );
+        
+        if (kid.borrar(cnx.con) == 1) {
+            JOptionPane.showMessageDialog(this, "Datos del infante eliminados de la base de datos.");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al eliminar los datos del infante.");
+            this.dispose();
+        }
+    }//GEN-LAST:event_BBorrarActionPerformed
+
+    private void BCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_BCancelarActionPerformed
 
     /**
      * @param args the command line arguments

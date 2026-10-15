@@ -1,4 +1,8 @@
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /*
@@ -22,6 +26,19 @@ public class JDEducadores extends javax.swing.JDialog {
     
     public void obtenerConexion (Conexion cnx){
         this.cnx = cnx;
+    }
+    
+    public void obtenerEducador(Educadores edu){
+        
+        
+            TFCurpe.setText(edu.curp);
+            TFNombree.setText(edu.nombre);
+            CBSexoe.setSelectedItem(edu.sexo);
+            TFTelefonoe.setText(edu.telefono);
+            TFDireccion.setText(edu.direccion);    
+            CBEstadoe.setSelectedItem(edu.estado);
+        
+        
     }
 
     /**
@@ -77,10 +94,25 @@ public class JDEducadores extends javax.swing.JDialog {
         });
 
         BActualizar.setText("ACTUALIZAR");
+        BActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BActualizarActionPerformed(evt);
+            }
+        });
 
         BBorrar.setText("BORRAR");
+        BBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BBorrarActionPerformed(evt);
+            }
+        });
 
         BCancelar.setText("CANCELAR");
+        BCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BCancelarActionPerformed(evt);
+            }
+        });
 
         TFCurpe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,7 +203,6 @@ public class JDEducadores extends javax.swing.JDialog {
     }//GEN-LAST:event_TFCurpeActionPerformed
 
     private void BRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BRegistrarActionPerformed
-            
         Educadores edu = new Educadores (
             TFCurpe.getText(),
             TFNombree.getText(),
@@ -192,6 +223,52 @@ public class JDEducadores extends javax.swing.JDialog {
         }        
         
     }//GEN-LAST:event_BRegistrarActionPerformed
+
+    private void BActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BActualizarActionPerformed
+        Educadores edu = new Educadores (
+            TFCurpe.getText(),
+            TFNombree.getText(),
+            CBSexoe.getSelectedItem().toString(),
+            TFTelefonoe.getText(),
+            TFDireccion.getText(),
+            CBEstadoe.getSelectedItem().toString()
+        );  
+            
+       
+        
+        if (edu.actualizar(cnx.con) == 1) {
+            JOptionPane.showMessageDialog(this, "Datos del educador actualizados.");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "ERROR DE ACTUALIZACIÓN.");
+            this.dispose();
+        }  
+    }//GEN-LAST:event_BActualizarActionPerformed
+
+    private void BBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBorrarActionPerformed
+        Educadores edu = new Educadores (
+            TFCurpe.getText(),
+            TFNombree.getText(),
+            CBSexoe.getSelectedItem().toString(),
+            TFTelefonoe.getText(),
+            TFDireccion.getText(),
+            CBEstadoe.getSelectedItem().toString()
+        );  
+            
+       
+        
+        if (edu.borrar(cnx.con) == 1) {
+            JOptionPane.showMessageDialog(this, "Datos del educador eliminados de la base de datos.");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al eliminar los datos del educador.");
+            this.dispose();
+        }  
+    }//GEN-LAST:event_BBorrarActionPerformed
+
+    private void BCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_BCancelarActionPerformed
 
     /**
      * @param args the command line arguments

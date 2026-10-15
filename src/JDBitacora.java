@@ -27,6 +27,18 @@ public class JDBitacora extends javax.swing.JDialog {
         cnx.seleccionar(Responsable.curps, CBResponsable);
         cnx.seleccionar(Educadores.curps, CBEducador);
     }
+    public void obtenerBitacora(Bitacora bitacora){
+        
+            LFolio.setText(bitacora.folio);
+            LFecha.setText(bitacora.tiempo);
+            CBTipo.setSelectedItem(bitacora.tipo);
+            TAObservaciones.setText(bitacora.observaciones);
+            CBInfante.setSelectedItem(bitacora.curpi);    
+            CBResponsable.setSelectedItem(bitacora.curpr);
+            CBEducador.setSelectedItem(bitacora.curpe);
+        
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,8 +106,18 @@ public class JDBitacora extends javax.swing.JDialog {
         });
 
         BActualizar.setText("ACTUALIZAR");
+        BActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BActualizarActionPerformed(evt);
+            }
+        });
 
         BCancelar.setText("CANCELAR");
+        BCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BCancelarActionPerformed(evt);
+            }
+        });
 
         BBorrar.setText("BORRAR");
         BBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -200,12 +222,28 @@ public class JDBitacora extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBorrarActionPerformed
-        // TODO add your handling code here:
+        Bitacora bitacora = new Bitacora (
+            null,    
+            LFecha.getText(),
+            CBTipo.getSelectedItem().toString(),
+            TAObservaciones.getText(),
+            CBInfante.getSelectedItem().toString(),
+            CBResponsable.getSelectedItem().toString(),
+            CBEducador.getSelectedItem().toString()
+        );  
+            
+       
+        
+        if (bitacora.borrar(cnx.con) == 1) {
+            JOptionPane.showMessageDialog(this, "Datos de la base de datos eliminados de la base de datos.");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al eliminar los datos de la bitacora.");
+            this.dispose();
+        }
     }//GEN-LAST:event_BBorrarActionPerformed
 
     private void BRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BRegistrarActionPerformed
-        
-        
         Bitacora bitacora = new Bitacora (
             null,    
             LFecha.getText(),
@@ -232,6 +270,32 @@ public class JDBitacora extends javax.swing.JDialog {
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         LFecha.setText(s.format(new Date()));
     }//GEN-LAST:event_BHoyActionPerformed
+
+    private void BActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BActualizarActionPerformed
+        Bitacora bitacora = new Bitacora (
+            null,    
+            LFecha.getText(),
+            CBTipo.getSelectedItem().toString(),
+            TAObservaciones.getText(),
+            CBInfante.getSelectedItem().toString(),
+            CBResponsable.getSelectedItem().toString(),
+            CBEducador.getSelectedItem().toString()
+        );  
+            
+       
+        
+        if (bitacora.actualizar(cnx.con) == 1) {
+            JOptionPane.showMessageDialog(this, "Bitacora actualizada.");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "ERROR DE ACTUALIZACIÓN.");
+            this.dispose();
+        }
+    }//GEN-LAST:event_BActualizarActionPerformed
+
+    private void BCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_BCancelarActionPerformed
 
     /**
      * @param args the command line arguments
