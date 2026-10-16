@@ -25,24 +25,23 @@ public class Bitacora {
     
     
     public int insertar(Connection con){
-        int resultado = 0;
-        try {
-            String sql = "INSERT INTO bitacora VALUES(?,?,?,?,?,?,?)";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, folio);
-            ps.setString(2, tiempo);
-            ps.setString(3, tipo);
-            ps.setString(4, observaciones);
-            ps.setString(5, curpi);
-            ps.setString(6, curpr);
-            ps.setString(7, curpe);
-            return ps.executeUpdate();
-            
-        } catch (Exception e) {
-            System.out.println("ERROR: "+e.getMessage());
-            return resultado;
-        }
+    int resultado = 0;
+    try {
+        String sql = "INSERT INTO bitacora (tiempo, tipo, observaciones, infantes_curp, responsables_curpr, educadores_curpe) VALUES(?,?,?,?,?,?)";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, tiempo);
+        ps.setString(2, tipo);
+        ps.setString(3, observaciones);
+        ps.setString(4, curpi);
+        ps.setString(5, curpr);
+        ps.setString(6, curpe);
+        return ps.executeUpdate();
+        
+    } catch (Exception e) {
+        System.out.println("ERROR: " + e.getMessage());
+        return resultado;
     }
+}
     
     public int borrar(Connection con){
         int resultado = 0;
