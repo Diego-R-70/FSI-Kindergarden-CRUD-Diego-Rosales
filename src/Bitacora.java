@@ -60,7 +60,7 @@ public class Bitacora {
     public int actualizar(Connection con){
         int resultado = 0;
         try {
-            String sql = "UPDATE bitacora SET tiempo = ?, tipo = ?, observaciones = ?, infantes_curp = ?, responsables_curpr = ?, educadores_curpe = ?, WHERE folio = ?";
+            String sql = "UPDATE bitacora SET tiempo = ?, tipo = ?, observaciones = ?, infantes_curp = ?, responsables_curpr = ?, educadores_curpe = ? WHERE folio = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, tiempo);
             ps.setString(2, tipo);

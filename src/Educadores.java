@@ -4,7 +4,7 @@ import java.sql.*;
 public class Educadores {
     
     static String todos = "SELECT * FROM educadores ORDER BY nombree";
-    static String curps = "SELECT * curpe FROM educadores ORDER BY curpe";
+    static String curps = "SELECT curpe FROM educadores ORDER BY curpe";
     
     String curp, nombre, sexo, telefono, direccion, estado;
     
@@ -64,8 +64,9 @@ public class Educadores {
             ps.setString(1, nombre);
             ps.setString(2, sexo);
             ps.setString(3, telefono);
-            ps.setString(3, telefono);
-            ps.setString(4, estado);
+            ps.setString(4, direccion);
+            ps.setString(5, estado);
+            ps.setString(6, curp);
             return ps.executeUpdate(); 
             
         } catch (Exception e) {

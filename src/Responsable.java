@@ -3,7 +3,7 @@ import java.sql.*;
 public class Responsable {
     
     static String todos = "SELECT * FROM responsables ORDER BY nombrer";
-    static String curps = "SELECT * curpr FROM responsables ORDER BY curpr";
+    static String curps = "SELECT curpr FROM responsables ORDER BY curpr";
     
     String curp, nombre, sexo, telefono, parentesco, estado;
     

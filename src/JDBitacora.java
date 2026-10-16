@@ -223,7 +223,7 @@ public class JDBitacora extends javax.swing.JDialog {
 
     private void BBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBorrarActionPerformed
         Bitacora bitacora = new Bitacora (
-            null,    
+            LFolio.getText(),    
             LFecha.getText(),
             CBTipo.getSelectedItem().toString(),
             TAObservaciones.getText(),
@@ -245,7 +245,7 @@ public class JDBitacora extends javax.swing.JDialog {
 
     private void BRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BRegistrarActionPerformed
         Bitacora bitacora = new Bitacora (
-            null,    
+            LFolio.getText(),    
             LFecha.getText(),
             CBTipo.getSelectedItem().toString(),
             TAObservaciones.getText(),
@@ -257,7 +257,7 @@ public class JDBitacora extends javax.swing.JDialog {
        
         
         if (bitacora.insertar(cnx.con) == 1) {
-            JOptionPane.showMessageDialog(this, "EDUCADOR REGISTRADO.");
+            JOptionPane.showMessageDialog(this, "Datos de la bitacora actualizados.");
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "ERROR DE REGISTRO.");
@@ -273,7 +273,7 @@ public class JDBitacora extends javax.swing.JDialog {
 
     private void BActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BActualizarActionPerformed
         Bitacora bitacora = new Bitacora (
-            null,    
+            LFolio.getText(),    
             LFecha.getText(),
             CBTipo.getSelectedItem().toString(),
             TAObservaciones.getText(),

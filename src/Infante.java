@@ -3,7 +3,7 @@ import java.sql.*;
 public class Infante {
     
     static String todos = "SELECT * FROM infantes ORDER BY nombrei";
-    static String curps = "SELECT * curpi FROM infantes ORDER BY curpi";
+    static String curps = "SELECT curp FROM infantes ORDER BY curp";
     
     String curp, nombre, sexo, fecha, estado;
     
@@ -53,7 +53,7 @@ public class Infante {
     public int actualizar(Connection con){
         int resultado = 0;
         try {
-            String sql = "UPDATE infantes SET nombrei = ?, sexo = ?, fecha_nac = ?, estado = ? WHERE curp = ?";
+            String sql = "UPDATE infantes SET nombrei = ?, sexoi = ?, fecha_nac = ?, estado = ? WHERE curp = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, nombre);
             ps.setString(2, sexo);

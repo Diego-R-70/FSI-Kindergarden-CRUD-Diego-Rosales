@@ -175,19 +175,23 @@ public class FPrincipal extends javax.swing.JFrame {
         if (TBInfantes.isSelected()){
             JDInfantes di = new JDInfantes(this, true);
             di.obtenerConexion(cnx);
-            di.setVisible(true);           
+            di.setVisible(true);
+            cnx.entablar(Infante.todos, TQuery);
         }else if (TBEducadores.isSelected()){
             JDEducadores de = new JDEducadores(this, true);
             de.obtenerConexion(cnx);
             de.setVisible(true);
+            cnx.entablar(Educadores.todos, TQuery);
         }else if (TBResponsables.isSelected()){
             JDResponsables dr = new JDResponsables(this, true);
             dr.obtenerConexion(cnx);
             dr.setVisible(true);
+            cnx.entablar(Responsable.todos, TQuery);
         }else if (TBBitacora.isSelected()){
             JDBitacora db = new JDBitacora(this, true);
             db.obtenerConexion(cnx);
             db.setVisible(true);
+            cnx.entablar(Bitacora.todos, TQuery);
         }
     }//GEN-LAST:event_BNuevoActionPerformed
 
@@ -200,22 +204,26 @@ public class FPrincipal extends javax.swing.JFrame {
             JDInfantes di = new JDInfantes(this, true);
             di.obtenerConexion(cnx);
             di.obtenerInfante(crearInfante());
-            di.setVisible(true);           
+            di.setVisible(true);
+            cnx.entablar(Infante.todos, TQuery);
         }else if (TBEducadores.isSelected()){
             JDEducadores de = new JDEducadores(this, true);
             de.obtenerConexion(cnx);
             de.obtenerEducador(crearEducador());
             de.setVisible(true);
+            cnx.entablar(Educadores.todos, TQuery);
         }else if (TBResponsables.isSelected()){
             JDResponsables dr = new JDResponsables(this, true);
             dr.obtenerConexion(cnx);
             dr.obtenerResponsable(crearResponsable());
             dr.setVisible(true);
+            cnx.entablar(Responsable.todos, TQuery);
         }else if (TBBitacora.isSelected()){
             JDBitacora db = new JDBitacora(this, true);
             db.obtenerConexion(cnx);
             db.obtenerBitacora(crearBitacora());
             db.setVisible(true);
+            cnx.entablar(Bitacora.todos, TQuery);
         }
     }//GEN-LAST:event_BEditarActionPerformed
 
@@ -338,4 +346,7 @@ public class FPrincipal extends javax.swing.JFrame {
      }
        return bitacora; 
     } 
+    
+    
+    
 }
